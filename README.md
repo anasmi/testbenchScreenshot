@@ -1,21 +1,47 @@
-# Project Base for Vaadin and Spring Boot
+# Creating screenshots
 
-This project can be used as a starting point to create your own Vaadin application with Spring Boot.
-It contains all the necessary configuration and some placeholder files to get you started.
+A simple class utility to create screenshots from your tests. Currently, there are two methods:
 
-The best way to create your own project based on this starter is [start.vaadin.com](https://start.vaadin.com/) - you can get only the necessary parts and choose the package naming you want to use.
+- `public File takeScreenshot(String destinationFile)`
+- `File takeScreenshot(String destinationFile, String URL)`
 
-## Running the Application
+## Using the class
 
-Import the project to the IDE of your choosing as a Maven project.
+To build jar you should run : `mvn package`
+After that you can import the class to your repo via mave using : 
 
-Run the application using `mvn spring-boot:run` or by running the `Application` class directly from your IDE.
+```
+<dependency>
+    <groupId>org.vaadin.anastasia</groupId>
+    <artifactId>screenshootlibrary</artifactId>
+    <type>test-jar</type>
+    <version>2.0-SNAPSHOT</version>
+    <classifier>tests</classifier>
+    <scope>system</scope>
+    <systemPath>Path_to_jar/screenshootlibrary-2.0-SNAPSHOT.jar</systemPath>
+</dependency>
+```
+Usage example :
+```
+public class TakeScreenshots  extends TakeScreenShoot {
 
-Open http://localhost:8080/ in your browser.
+        @Before
+        public void init() {
+                getDriver().get("http://localhost:8080");
+        }
 
-If you want to run the application locally in the production mode, run `mvn spring-boot:run -Pproduction`.
+        @Test
+        public void makeScreen(){
+                super.takeScreenshot("screenshot/image.png");
+        }
 
-To run Integration Tests, execute `mvn verify -Pintegration-tests`.
+        @BrowserConfiguration
+        public List<DesiredCapabilities> getBrowserConfiguration() {
+                return Arrays.asList(BrowserUtil.chrome());
+        }
+}
+
+```
 
 ## More Information
 
