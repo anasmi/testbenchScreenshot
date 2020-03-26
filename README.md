@@ -43,8 +43,6 @@ public class TakeScreenshots  extends TakeScreenShoot {
 
 ```
 
-## More Information
+## Notes
 
-- [Vaadin Flow](https://vaadin.com/flow) documentation
-- [Using Vaadin and Spring](https://vaadin.com/docs/v14/flow/spring/tutorial-spring-basic.html) article
-
+The approach described here under the [The preferred way](https://maven.apache.org/plugins/maven-jar-plugin/examples/create-test-jar.html) is used.
