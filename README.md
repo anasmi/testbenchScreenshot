@@ -1,48 +1,27 @@
 # Creating screenshots
 
-A simple class utility to create screenshots from your tests. Currently, there are two methods:
+A simple Java class utility to create screenshots from your tests. Uses headless Chrome.
 
-- `public File takeScreenshot(String destinationFile)`
-- `File takeScreenshot(String destinationFile, String URL)`
+## Usage
 
-## Using the class
+To build executable jar you should run : `mvn clean package`
 
-To build jar you should run : `mvn package`
-After that you can import the class to your repo via mave using : 
+You can run the utility: 
 
 ```
-<dependency>
-    <groupId>org.vaadin.anastasia</groupId>
-    <artifactId>screenshootlibrary</artifactId>
-    <type>test-jar</type>
-    <version>2.0-SNAPSHOT</version>
-    <classifier>tests</classifier>
-    <scope>system</scope>
-    <systemPath>Path_to_jar/screenshootlibrary-2.0-SNAPSHOT.jar</systemPath>
-</dependency>
-```
-Usage example :
-```
-public class TakeScreenshots  extends TakeScreenShoot {
-
-        @Before
-        public void init() {
-                getDriver().get("http://localhost:8080");
-        }
-
-        @Test
-        public void makeScreen(){
-                super.takeScreenshot("screenshot/image.png");
-        }
-
-        @BrowserConfiguration
-        public List<DesiredCapabilities> getBrowserConfiguration() {
-                return Arrays.asList(BrowserUtil.chrome());
-        }
-}
-
+java -jar ./target/target/screenshootlibrary-2.0-SNAPSHOT-jar-with-dependencies.jar <url> <filename> <width> <height>
 ```
 
-## Notes
+You can specify only the URL and file name. Some examples:
+```
+# Take screenshot in default size and use timestamped output file name.
+java -jar ./target/target/screenshootlibrary-2.0-SNAPSHOT-jar-with-dependencies.jar https://vaadin.com/
 
-The approach described here under the [The preferred way](https://maven.apache.org/plugins/maven-jar-plugin/examples/create-test-jar.html) is used.
+# Take screenshot in default size and use the given filename
+java -jar ./target/target/screenshootlibrary-2.0-SNAPSHOT-jar-with-dependencies.jar https://vaadin.com/ frontpage.png
+
+# Specify all the parameters: URL, filename width and height in pixels
+java -jar ./target/target/screenshootlibrary-2.0-SNAPSHOT-jar-with-dependencies.jar https://vaadin.com/ frontpage.png 800 600
+
+
+```
