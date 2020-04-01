@@ -3,17 +3,18 @@ package org.vaadin.anastasia;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.LogFactory;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,6 +47,11 @@ public class TakeScreenShoot {
                 driver.setLogLevel(Level.INFO);
                 try {
                         driver.get(URL);
+
+                        // Wait for Vaadin progressbar to disappear§
+                        WebDriverWait wait = new WebDriverWait(driver, 15);
+                        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.v-loading-indicator")));
+
                         if (width < 0 || height < 0) {
                                 driver.manage().window().maximize();
                         } else {
