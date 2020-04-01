@@ -39,6 +39,7 @@ public class TakeScreenShoot {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--headless");
                 options.addArguments("--disable-gpu");
+                options.addArguments("--hide-scrollbars");
                 System.setProperty("webdriver.chrome.silentOutput", "true");
                 java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.SEVERE);
                 ChromeDriver driver = new ChromeDriver(options);
